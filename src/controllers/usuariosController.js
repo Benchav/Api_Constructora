@@ -1,11 +1,10 @@
-// src/controllers/usuariosController.js
 const usuariosService = require('../services/usuariosService');
 const makeController = require('./genericController');
 const { validateCreateUsuario } = require('../models/usuario');
 
 const controller = makeController(usuariosService);
 
-// Wrap create to add validation
+
 const originalCreate = controller.create;
 controller.create = (req, res) => {
   const validation = validateCreateUsuario(req.body);

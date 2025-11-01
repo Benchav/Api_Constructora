@@ -4,7 +4,7 @@ const { validateCreateInventarioItem } = require('../models/inventario');
 
 const controller = makeController(inventarioService);
 
-// Wrap create to add validation
+
 const originalCreate = controller.create;
 controller.create = (req, res) => {
   const validation = validateCreateInventarioItem(req.body);

@@ -1,27 +1,15 @@
-
-const proyectosService = require('../services/proyectosService');
+const finanzasService = require('../services/finanzasService');
 const makeController = require('./genericController');
-const { validateCreateProyecto } = require('../models/proyecto');
+const { validateCreateFinanza } = require('../models/finanza');
 
-
-
-const controller = makeController(proyectosService);
-
+const controller = makeController(finanzasService);
 
 const originalCreate = controller.create;
-
 controller.create = (req, res) => {
-  const validation = validateCreateProyecto(req.body);
+  const validation = validateCreateFinanza(req.body);
   if (!validation.ok) {
     return res.status(400).json({ message: 'Faltan campos requeridos', missing: validation.missing });
   }
-
-
-  if (req.body.avance === undefined) {
-    req.body.avance = 0; 
-  }
-
-
   return originalCreate(req, res);
 };
 

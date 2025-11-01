@@ -1,5 +1,3 @@
-// src/controllers/genericController.js
-// controlador factory que recibe un service (instancia de GenericService)
 const makeController = (service) => ({
   list: (req, res) => {
     const items = service.findAll();
