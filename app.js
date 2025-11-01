@@ -9,7 +9,7 @@ const swaggerUi = require('swagger-ui-express');
 const { UsuarioSchema, UsuarioCreate, UsuarioUpdate } = require('./src/models/usuario');
 const { ProyectoSchema, ProyectoCreate, ProyectoUpdate } = require('./src/models/proyecto');
 const {InventarioItemSchema, InventarioItemCreate, InventarioItemUpdate} = require('./src/models/inventario');
-
+const {EmpleadoSchema, EmpleadoCreate, EmpleadoUpdate} = require('./src/models/empleado');
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -45,7 +45,11 @@ const options = {
         InventarioItem: InventarioItemSchema,
         InventarioItemCreate: InventarioItemCreate,
         InventarioItemUpdate: InventarioItemUpdate,
-        // Aquí más schemas cuando los agregues: InventarioItem, etc.
+
+        Empleado : EmpleadoSchema,
+        EmpleadoCreate: EmpleadoCreate,
+        EmpleadoUpdate: EmpleadoUpdate,
+        
       }
     }
   },
