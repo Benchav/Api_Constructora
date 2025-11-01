@@ -1,7 +1,6 @@
-// src/models/ordenCompra.js
 const { toOpenApiSchema } = require('./_schemaHelper');
 
-// Objeto base
+
 const OrdenCompra = {
   id: { type: 'string', example: 'oc1' },
   proyectoId: { type: 'integer', example: 100 },
@@ -12,7 +11,7 @@ const OrdenCompra = {
   estado: { type: 'string', example: 'Recibida' }
 };
 
-// --- Schemas para Swagger ---
+
 const OrdenCompraSchema = toOpenApiSchema(OrdenCompra, {
   description: 'Orden de compra completa'
 });
@@ -26,7 +25,7 @@ const OrdenCompraUpdate = toOpenApiSchema(OrdenCompra, {
   description: 'Payload para actualizar orden de compra'
 });
 
-// --- Validación ---
+
 function validateCreateOrdenCompra(payload) {
   const required = ['proyectoId', 'fechaPedido', 'proveedor', 'items', 'montoTotal', 'estado'];
   const missing = required.filter(k => !payload[k]);

@@ -1,7 +1,6 @@
-// src/models/plano.js
 const { toOpenApiSchema } = require('./_schemaHelper');
 
-// Objeto base
+
 const Plano = {
   id: { type: 'string', example: 'p1' },
   nombre: { type: 'string', example: 'Plano Estructural P1.pdf' },
@@ -10,7 +9,6 @@ const Plano = {
   fecha: { type: 'string', example: '2025-09-10' }
 };
 
-// --- Schemas para Swagger ---
 const PlanoSchema = toOpenApiSchema(Plano, {
   description: 'Plano completo'
 });
@@ -24,7 +22,7 @@ const PlanoUpdate = toOpenApiSchema(Plano, {
   description: 'Payload para actualizar plano'
 });
 
-// --- Validación ---
+
 function validateCreatePlano(payload) {
   const required = ['nombre', 'proyectoId', 'categoria', 'fecha'];
   const missing = required.filter(k => !payload[k]);

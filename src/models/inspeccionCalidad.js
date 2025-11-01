@@ -1,7 +1,5 @@
-// src/models/inspeccionCalidad.js
 const { toOpenApiSchema } = require('./_schemaHelper');
 
-// Objeto base
 const InspeccionCalidad = {
   id: { type: 'string', example: 'ic1' },
   proyectoId: { type: 'integer', example: 100 },
@@ -11,7 +9,7 @@ const InspeccionCalidad = {
   observaciones: { type: 'string', example: 'Cumple con plano estructural.' }
 };
 
-// --- Schemas para Swagger ---
+
 const InspeccionCalidadSchema = toOpenApiSchema(InspeccionCalidad, {
   description: 'Inspección de calidad completa'
 });
@@ -25,7 +23,7 @@ const InspeccionCalidadUpdate = toOpenApiSchema(InspeccionCalidad, {
   description: 'Payload para actualizar inspección'
 });
 
-// --- Validación ---
+
 function validateCreateInspeccionCalidad(payload) {
   const required = ['proyectoId', 'fecha', 'fase', 'resultado'];
   const missing = required.filter(k => !payload[k]);

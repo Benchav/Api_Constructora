@@ -1,6 +1,3 @@
-// src/models/_schemaHelper.js
-
-// Esta función es un ayudante genérico para crear schemas de OpenAPI
 function toOpenApiSchema(baseObj, { required = [], description = '' } = {}) {
   const properties = {};
   Object.keys(baseObj).forEach(key => {

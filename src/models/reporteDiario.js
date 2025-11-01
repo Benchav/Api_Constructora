@@ -1,7 +1,6 @@
-// src/models/reporteDiario.js
 const { toOpenApiSchema } = require('./_schemaHelper');
 
-// Objeto base
+
 const ReporteDiario = {
   id: { type: 'string', example: 'r1' },
   fecha: { type: 'string', example: '2025-10-24' },
@@ -10,7 +9,7 @@ const ReporteDiario = {
   resumen: { type: 'string', example: 'Se completó 50% de la mampostería...' }
 };
 
-// --- Schemas para Swagger ---
+
 const ReporteDiarioSchema = toOpenApiSchema(ReporteDiario, {
   description: 'Reporte diario completo'
 });
@@ -24,7 +23,7 @@ const ReporteDiarioUpdate = toOpenApiSchema(ReporteDiario, {
   description: 'Payload para actualizar reporte diario'
 });
 
-// --- Validación ---
+
 function validateCreateReporteDiario(payload) {
   const required = ['fecha', 'proyectoId', 'creadoPor', 'resumen'];
   const missing = required.filter(k => !payload[k]);

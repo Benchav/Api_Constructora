@@ -1,4 +1,3 @@
-// src/routes/planos.js
 const express = require('express');
 const router = express.Router();
 const ctrl = require('../controllers/planosController');
@@ -114,7 +113,7 @@ router.put('/:id', ctrl.update);
  */
 router.delete('/:id', ctrl.remove);
 
-// GET por ID (sin documentación Swagger)
+
 router.get('/:id', ctrl.getById);
 
 module.exports = router;

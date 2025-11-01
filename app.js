@@ -1,11 +1,10 @@
-// app.js
 const express = require('express');
 const cors = require('cors');
 const routes = require('./src/routes');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-// Importar modelos/schemas
+
 const { UsuarioSchema, UsuarioCreate, UsuarioUpdate } = require('./src/models/usuario');
 const { ProyectoSchema, ProyectoCreate, ProyectoUpdate } = require('./src/models/proyecto');
 const {InventarioItemSchema, InventarioItemCreate, InventarioItemUpdate} = require('./src/models/inventario');
@@ -24,7 +23,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Montar rutas
+
 app.use('/api', routes);
 
 app.get('/', (req, res) => {
@@ -43,7 +42,7 @@ const options = {
     servers: [{ url: 'http://localhost:3000' }],
     components: {
       schemas: {
-        // Inyectamos aquí los schemas importados desde models
+        
         Usuario: UsuarioSchema,
         UsuarioCreate: UsuarioCreate,
         UsuarioUpdate: UsuarioUpdate,
@@ -100,7 +99,7 @@ const options = {
     }
   },
   apis: [
-    './src/routes/*.js' // dejar los JSDoc en las rutas (path & operations)
+    './src/routes/*.js'
   ]
 };
 

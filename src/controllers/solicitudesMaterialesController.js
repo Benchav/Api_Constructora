@@ -4,7 +4,7 @@ const { validateCreateSolicitudMaterial } = require('../models/solicitudMaterial
 
 const controller = makeController(solicitudesMaterialesService);
 
-// Wrap create to add validation
+
 const originalCreate = controller.create;
 controller.create = (req, res) => {
   const validation = validateCreateSolicitudMaterial(req.body);

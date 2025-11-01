@@ -1,7 +1,6 @@
-// src/models/inventario.js
 const { toOpenApiSchema } = require('./_schemaHelper');
 
-// Objeto base
+
 const InventarioItem = {
   id: { type: 'integer', example: 50 },
   item: { type: 'string', example: 'Cemento Portland' },
@@ -10,7 +9,7 @@ const InventarioItem = {
   proyectoId: { type: 'integer', example: 100 }
 };
 
-// --- Schemas para Swagger ---
+
 const InventarioItemSchema = toOpenApiSchema(InventarioItem, {
   description: 'Item de Inventario completo'
 });
@@ -24,7 +23,7 @@ const InventarioItemUpdate = toOpenApiSchema(InventarioItem, {
   description: 'Payload para actualizar item de inventario'
 });
 
-// --- Validación ---
+
 function validateCreateInventarioItem(payload) {
   const required = ['item', 'unidad', 'stock', 'proyectoId'];
   const missing = required.filter(k => !payload[k]);

@@ -1,4 +1,3 @@
-// src/services/genericService.js
 const { generateNumericId, generateStringId } = require('../utils/idGenerator');
 
 class GenericService {

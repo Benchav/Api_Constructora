@@ -1,7 +1,6 @@
-// src/models/finanza.js
 const { toOpenApiSchema } = require('./_schemaHelper');
 
-// Objeto base
+
 const Finanza = {
   id: { type: 'string', example: 'f1' },
   tipo: { type: 'string', example: 'Ingreso' },
@@ -12,7 +11,7 @@ const Finanza = {
   fecha: { type: 'string', example: '2025-10-18' }
 };
 
-// --- Schemas para Swagger ---
+
 const FinanzaSchema = toOpenApiSchema(Finanza, {
   description: 'Registro financiero completo'
 });
@@ -26,7 +25,7 @@ const FinanzaUpdate = toOpenApiSchema(Finanza, {
   description: 'Payload para actualizar registro financiero'
 });
 
-// --- Validación ---
+
 function validateCreateFinanza(payload) {
   const required = ['tipo', 'proyectoId', 'descripcion', 'monto', 'fecha'];
   const missing = required.filter(k => !payload[k]);

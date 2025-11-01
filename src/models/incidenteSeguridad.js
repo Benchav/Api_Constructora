@@ -1,7 +1,6 @@
-// src/models/incidenteSeguridad.js
 const { toOpenApiSchema } = require('./_schemaHelper');
 
-// Objeto base
+
 const IncidenteSeguridad = {
   id: { type: 'string', example: 'is1' },
   proyectoId: { type: 'integer', example: 100 },
@@ -11,7 +10,7 @@ const IncidenteSeguridad = {
   responsable: { type: 'string', example: 'Jefe de Obra' }
 };
 
-// --- Schemas para Swagger ---
+
 const IncidenteSeguridadSchema = toOpenApiSchema(IncidenteSeguridad, {
   description: 'Incidente de seguridad completo'
 });
@@ -25,7 +24,7 @@ const IncidenteSeguridadUpdate = toOpenApiSchema(IncidenteSeguridad, {
   description: 'Payload para actualizar incidente'
 });
 
-// --- Validación ---
+
 function validateCreateIncidenteSeguridad(payload) {
   const required = ['proyectoId', 'fecha', 'tipo', 'descripcion'];
   const missing = required.filter(k => !payload[k]);

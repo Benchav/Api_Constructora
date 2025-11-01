@@ -1,7 +1,6 @@
-// src/models/empleado.js
 const { toOpenApiSchema } = require('./_schemaHelper');
 
-// Objeto base
+
 const Empleado = {
   id: { type: 'integer', example: 200 },
   nombre: { type: 'string', example: 'Carlos Ruiz' },
@@ -10,7 +9,7 @@ const Empleado = {
   salario: { type: 'number', example: 1200 }
 };
 
-// --- Schemas para Swagger ---
+
 const EmpleadoSchema = toOpenApiSchema(Empleado, {
   description: 'Empleado completo'
 });
@@ -24,7 +23,7 @@ const EmpleadoUpdate = toOpenApiSchema(Empleado, {
   description: 'Payload para actualizar empleado'
 });
 
-// --- Validación ---
+
 function validateCreateEmpleado(payload) {
   const required = ['nombre', 'puesto', 'salario'];
   const missing = required.filter(k => !payload[k]);

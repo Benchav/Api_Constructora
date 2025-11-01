@@ -1,7 +1,6 @@
-// src/models/solicitudDinero.js
 const { toOpenApiSchema } = require('./_schemaHelper');
 
-// Objeto base
+
 const SolicitudDinero = {
   id: { type: 'string', example: 'sd1' },
   proyectoId: { type: 'integer', example: 101 },
@@ -12,7 +11,7 @@ const SolicitudDinero = {
   fecha: { type: 'string', example: '2025-10-20' }
 };
 
-// --- Schemas para Swagger ---
+
 const SolicitudDineroSchema = toOpenApiSchema(SolicitudDinero, {
   description: 'Solicitud de dinero completa'
 });
@@ -26,7 +25,7 @@ const SolicitudDineroUpdate = toOpenApiSchema(SolicitudDinero, {
   description: 'Payload para actualizar solicitud de dinero'
 });
 
-// --- Validación ---
+
 function validateCreateSolicitudDinero(payload) {
   const required = ['proyectoId', 'motivo', 'monto', 'solicitante', 'fecha'];
   const missing = required.filter(k => !payload[k]);
