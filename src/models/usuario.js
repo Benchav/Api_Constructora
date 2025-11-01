@@ -1,3 +1,7 @@
+// src/models/usuario.js
+const { toOpenApiSchema } = require('./_schemaHelper');
+
+// Objeto base de la entidad Usuario
 const Usuario = {
   id: { type: 'integer', example: 1 },
   nombre: { type: 'string', example: 'Ana Martínez' },
@@ -7,40 +11,22 @@ const Usuario = {
   proyectoAsignadoId: { type: 'integer', nullable: true, example: 100 }
 };
 
+// --- Schemas para Swagger ---
 
-function toOpenApiSchema(baseObj, { required = [], description = '' } = {}) {
-  const properties = {};
-  Object.keys(baseObj).forEach(key => {
-    const def = baseObj[key];
-    const prop = {};
-
-    if (def.type) prop.type = def.type;
-    if (def.example !== undefined) prop.example = def.example;
-    if (def.nullable) prop.nullable = true;
-    if (def.description) prop.description = def.description;
-    properties[key] = prop;
-  });
-
-  const schema = {
-    type: 'object',
-    properties
-  };
-  if (required && required.length) schema.required = required;
-  if (description) schema.description = description;
-  return schema;
-}
-
-
-const UsuarioSchema = toOpenApiSchema(Usuario, { description: 'Usuario completo (respuesta)' });
+const UsuarioSchema = toOpenApiSchema(Usuario, { 
+  description: 'Usuario completo (respuesta)' 
+});
 
 const UsuarioCreate = toOpenApiSchema(Usuario, {
   required: ['nombre', 'rol', 'username', 'password'],
   description: 'Payload para crear usuario'
 });
 
+const UsuarioUpdate = toOpenApiSchema(Usuario, { 
+  description: 'Payload para actualizar usuario (parcial)' 
+});
 
-const UsuarioUpdate = toOpenApiSchema(Usuario, { description: 'Payload para actualizar usuario (parcial)' });
-
+// --- Funciones de Validación ---
 
 function validateCreateUsuario(payload) {
   const required = ['nombre', 'rol', 'username', 'password'];
