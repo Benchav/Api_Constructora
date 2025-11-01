@@ -51,6 +51,6 @@ Para ejecutar este proyecto localmente, necesitarás configurar tus variables de
 npm run dev
 ```
 
-## Hecha por:## Joshua Chavez
-## Portafolio#
+## Hecha por: Joshua Chavez
+## Portafolio
 https://joshuachavez.vercel.app/
