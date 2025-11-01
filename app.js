@@ -10,6 +10,8 @@ const { UsuarioSchema, UsuarioCreate, UsuarioUpdate } = require('./src/models/us
 const { ProyectoSchema, ProyectoCreate, ProyectoUpdate } = require('./src/models/proyecto');
 const {InventarioItemSchema, InventarioItemCreate, InventarioItemUpdate} = require('./src/models/inventario');
 const {EmpleadoSchema, EmpleadoCreate, EmpleadoUpdate} = require('./src/models/empleado');
+const {FinanzaSchema, FinanzaCreate, FinanzaUpdate} = require ('./src/models/finanza');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -49,6 +51,10 @@ const options = {
         Empleado : EmpleadoSchema,
         EmpleadoCreate: EmpleadoCreate,
         EmpleadoUpdate: EmpleadoUpdate,
+
+        Finanza : FinanzaSchema,
+        FinanzaCreate: FinanzaCreate,
+        FinanzaUpdate: FinanzaUpdate,
         
       }
     }
