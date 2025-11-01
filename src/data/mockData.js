@@ -1,14 +1,20 @@
-// src/data/mockData.js
 const {
-  initialUsuarios, initialProyectos, initialInventarioObra,
-  initialEmpleados, initialFinanzas, initialLicitaciones,
-  initialPlanos, initialReportesDiarios, initialSolicitudesMateriales,
-  initialSolicitudesDinero, initialOrdenesCompra, initialInspeccionesCalidad,
+  initialUsuarios,
+  initialProyectos,
+  initialInventarioObra,
+  initialEmpleados,
+  initialFinanzas,
+  initialLicitaciones,
+  initialPlanos,
+  initialReportesDiarios,
+  initialSolicitudesMateriales,
+  initialSolicitudesDinero,
+  initialOrdenesCompra,
+  initialInspeccionesCalidad,
   initialIncidentesSeguridad
-} = require('./data');
+} = require('./index');
 
-// Exportamos variables mutables (simulan DB) y funciones de update
-
+// Variables mutables (simulan DB en memoria)
 let mockUsuarios = [...initialUsuarios];
 let mockProyectos = [...initialProyectos];
 let mockInventarioObra = [...initialInventarioObra];
@@ -23,7 +29,7 @@ let mockOrdenesCompra = [...initialOrdenesCompra];
 let mockInspeccionesCalidad = [...initialInspeccionesCalidad];
 let mockIncidentesSeguridad = [...initialIncidentesSeguridad];
 
-// getters
+// Getters
 const getUsuarios = () => mockUsuarios;
 const getProyectos = () => mockProyectos;
 const getInventario = () => mockInventarioObra;
@@ -38,7 +44,7 @@ const getOrdenesCompra = () => mockOrdenesCompra;
 const getInspeccionesCalidad = () => mockInspeccionesCalidad;
 const getIncidentesSeguridad = () => mockIncidentesSeguridad;
 
-// update functions (reemplazan la colección)
+// Updaters (reemplazan la colección)
 const updateUsuarios = (newData) => { mockUsuarios = newData; };
 const updateProyectos = (newData) => { mockProyectos = newData; };
 const updateInventario = (newData) => { mockInventarioObra = newData; };
@@ -55,13 +61,31 @@ const updateIncidentesSeguridad = (newData) => { mockIncidentesSeguridad = newDa
 
 module.exports = {
   // getters
-  getUsuarios, getProyectos, getInventario, getEmpleados,
-  getFinanzas, getLicitaciones, getPlanos, getReportesDiarios,
-  getSolicitudesMateriales, getSolicitudesDinero, getOrdenesCompra,
-  getInspeccionesCalidad, getIncidentesSeguridad,
+  getUsuarios,
+  getProyectos,
+  getInventario,
+  getEmpleados,
+  getFinanzas,
+  getLicitaciones,
+  getPlanos,
+  getReportesDiarios,
+  getSolicitudesMateriales,
+  getSolicitudesDinero,
+  getOrdenesCompra,
+  getInspeccionesCalidad,
+  getIncidentesSeguridad,
   // updaters
-  updateUsuarios, updateProyectos, updateInventario, updateEmpleados,
-  updateFinanzas, updateLicitaciones, updatePlanos, updateReportesDiarios,
-  updateSolicitudesMateriales, updateSolicitudesDinero, updateOrdenesCompra,
-  updateInspeccionesCalidad, updateIncidentesSeguridad
+  updateUsuarios,
+  updateProyectos,
+  updateInventario,
+  updateEmpleados,
+  updateFinanzas,
+  updateLicitaciones,
+  updatePlanos,
+  updateReportesDiarios,
+  updateSolicitudesMateriales,
+  updateSolicitudesDinero,
+  updateOrdenesCompra,
+  updateInspeccionesCalidad,
+  updateIncidentesSeguridad
 };
