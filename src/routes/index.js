@@ -14,7 +14,6 @@ router.use('/solicitudesMateriales', require('./solicitudesMateriales'));
 router.use('/solicitudesDinero', require('./solicitudesDinero'));
 router.use('/ordenescompra', require('./ordenesCompra'));
 router.use('/inspeccionesCalidad', require('./inspeccionesCalidad'));
-/*
-router.use('/incidentes', require('./incidentes'));*/
+router.use('/incidentesSeguridad', require('./incidentesSeguridad'));
 
 module.exports = router;
