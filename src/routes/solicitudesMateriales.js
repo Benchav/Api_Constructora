@@ -6,16 +6,16 @@ const ctrl = require('../controllers/solicitudesMaterialesController');
 /**
  * @swagger
  * tags:
- *   - name: SolicitudesMateriales
+ *   - name: solicitudesMateriales
  *     description: Operaciones sobre solicitudes de materiales
  */
 
 /**
  * @swagger
- * /api/SolicitudesMateriales:
+ * /api/solicitudesMateriales:
  *   get:
  *     tags:
- *       - SolicitudesMateriales
+ *       - solicitudesMateriales
  *     summary: Obtener lista de solicitudes de materiales
  *     responses:
  *       "200":
@@ -31,10 +31,10 @@ router.get('/', ctrl.list);
 
 /**
  * @swagger
- * /api/SolicitudesMateriales:
+ * /api/solicitudesMateriales:
  *   post:
  *     tags:
- *       - SolicitudesMateriales
+ *       - solicitudesMateriales
  *     summary: Crear nueva solicitud de material
  *     requestBody:
  *       required: true
@@ -56,10 +56,10 @@ router.post('/', ctrl.create);
 
 /**
  * @swagger
- * /api/SolicitudesMateriales/{id}:
+ * /api/solicitudesMateriales/{id}:
  *   put:
  *     tags:
- *       - SolicitudesMateriales
+ *       - solicitudesMateriales
  *     summary: Actualizar solicitud de material
  *     parameters:
  *       - in: path
@@ -87,10 +87,10 @@ router.put('/:id', ctrl.update);
 
 /**
  * @swagger
- * /api/SolicitudesMateriales/{id}:
+ * /api/solicitudesMateriales/{id}:
  *   delete:
  *     tags:
- *       - SolicitudesMateriales
+ *       - solicitudesMateriales
  *     summary: Eliminar solicitud de material
  *     parameters:
  *       - in: path
@@ -116,10 +116,10 @@ router.delete('/:id', ctrl.remove);
 
 /**
  * @swagger
- * /api/SolicitudesMateriales/{id}:
+ * /api/solicitudesMateriales/{id}:
  *   get:
  *     tags:
- *       - SolicitudesMateriales
+ *       - solicitudesMateriales
  *     summary: Obtener una solicitud de material por ID
  *     parameters:
  *       - in: path

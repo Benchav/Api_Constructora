@@ -18,6 +18,7 @@ const {SolicitudMaterialSchema, SolicitudMaterialCreate, SolicitudMaterialUpdate
 const {SolicitudDineroSchema, SolicitudDineroCreate, SolicitudDineroUpdate} = require('./src/models/solicitudDinero');
 const {OrdenCompraSchema, OrdenCompraCreate, OrdenCompraUpdate} = require('./src/models/ordenCompra');
 const {InspeccionCalidadSchema, InspeccionCalidadCreate, InspeccionCalidadUpdate} = require('./src/models/inspeccionCalidad');
+const {IncidenteSeguridadSchema, IncidenteSeguridadCreate, IncidenteSeguridadUpdate} = require('./src/models/incidenteSeguridad');
 
 const app = express();
 app.use(cors());
@@ -75,7 +76,7 @@ const options = {
         ReporteDiarioCreate: ReporteDiarioCreate,
         ReporteDiarioUpdate: ReporteDiarioUpdate,
 
-        SolicitudMateriales: SolicitudMaterialSchema,
+        SolicitudMaterial: SolicitudMaterialSchema,
         SolicitudMaterialCreate: SolicitudMaterialCreate,
         SolicitudMaterialUpdate: SolicitudMaterialUpdate,
 
@@ -90,6 +91,10 @@ const options = {
         InspeccionCalidad: InspeccionCalidadSchema,
         InspeccionCalidadCreate: InspeccionCalidadCreate,
         InspeccionCalidadUpdate: InspeccionCalidadUpdate,
+
+        IncidenteSeguridad: IncidenteSeguridadSchema,
+        IncidenteSeguridadCreate: IncidenteSeguridadCreate,
+        IncidenteSeguridadUpdate: IncidenteSeguridadUpdate,
 
       }
     }
