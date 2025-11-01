@@ -49,3 +49,8 @@ Para ejecutar este proyecto localmente, necesitarás configurar tus variables de
 
 ```bash
 npm run dev
+```
+
+## Hecha por:## Joshua Chavez
+## Portafolio#
+https://joshuachavez.vercel.app/
