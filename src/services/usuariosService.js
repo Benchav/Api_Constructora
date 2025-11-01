@@ -1,10 +1,9 @@
-// src/services/usuariosService.js
 const GenericService = require('./genericService');
-const { getUsuarios, updateUsuarios } = require('../data/mockData');
+const { getUsuarios, setUsuarios } = require('../storage/inMemoryDb');
 
 const usuariosService = new GenericService({
   getter: getUsuarios,
-  updater: updateUsuarios,
+  updater: setUsuarios,
   idField: 'id',
   idIsNumber: true
 });
