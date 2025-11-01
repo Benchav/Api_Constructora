@@ -13,6 +13,7 @@ const {EmpleadoSchema, EmpleadoCreate, EmpleadoUpdate} = require('./src/models/e
 const {FinanzaSchema, FinanzaCreate, FinanzaUpdate} = require ('./src/models/finanza');
 const {LicitacionSchema, LicitacionCreate, LicitacionUpdate} = require('./src/models/licitacion');
 const {PlanoSchema, PlanoCreate, PlanoUpdate} = require('./src/models/plano');
+const {ReporteDiarioSchema, ReporteDiarioCreate, ReporteDiarioUpdate} = require('./src/models/reporteDiario');
 
 const app = express();
 app.use(cors());
@@ -65,6 +66,10 @@ const options = {
         Planos: PlanoSchema,
         PlanoCreate: PlanoCreate,
         PlanoUpdate: PlanoUpdate,
+
+        ReporteDiarios: ReporteDiarioSchema,
+        ReporteDiarioCreate: ReporteDiarioCreate,
+        ReporteDiarioUpdate: ReporteDiarioUpdate,
         
       }
     }

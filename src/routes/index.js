@@ -8,9 +8,9 @@ router.use('/inventario', require('./inventario'));
 router.use('/empleados', require('./empleados'));
 router.use('/finanzas', require('./finanzas'));
 router.use('/licitaciones', require('./licitaciones'));
-/*
 router.use('/planos', require('./planos'));
-router.use('/reportes', require('./reportes'));
+router.use('/reportes', require('./reportesDiarios'));
+/*
 router.use('/solicitudes-material', require('./solicitudesMaterial'));
 router.use('/solicitudes-dinero', require('./solicitudesDinero'));
 router.use('/ordenes-compra', require('./ordenesCompra'));
