@@ -11,8 +11,8 @@ router.use('/licitaciones', require('./licitaciones'));
 router.use('/planos', require('./planos'));
 router.use('/reportes', require('./reportesDiarios'));
 router.use('/solicitudesMateriales', require('./solicitudesMateriales'));
+router.use('/solicitudesDinero', require('./solicitudesDinero'));
 /*
-router.use('/solicitudes-dinero', require('./solicitudesDinero'));
 router.use('/ordenes-compra', require('./ordenesCompra'));
 router.use('/inspecciones', require('./inspecciones'));
 router.use('/incidentes', require('./incidentes'));*/
