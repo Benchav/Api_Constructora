@@ -15,6 +15,7 @@ const {LicitacionSchema, LicitacionCreate, LicitacionUpdate} = require('./src/mo
 const {PlanoSchema, PlanoCreate, PlanoUpdate} = require('./src/models/plano');
 const {ReporteDiarioSchema, ReporteDiarioCreate, ReporteDiarioUpdate} = require('./src/models/reporteDiario');
 const {SolicitudMaterialSchema, SolicitudMaterialCreate, SolicitudMaterialUpdate} = require('./src/models/solicitudMaterial');
+const {SolicitudDineroSchema, SolicitudDineroCreate, SolicitudDineroUpdate} = require('./src/models/solicitudDinero');
 
 const app = express();
 app.use(cors());
@@ -75,6 +76,10 @@ const options = {
         SolicitudMateriales: SolicitudMaterialSchema,
         SolicitudMaterialCreate: SolicitudMaterialCreate,
         SolicitudMaterialUpdate: SolicitudMaterialUpdate,
+
+        SolicitudDinero: SolicitudDineroSchema,
+        SolicitudDineroCreate: SolicitudDineroCreate,
+        SolicitudDineroUpdate: SolicitudDineroUpdate,
         
       }
     }
