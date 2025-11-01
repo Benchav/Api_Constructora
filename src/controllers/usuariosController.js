@@ -1,0 +1,18 @@
+// src/controllers/usuariosController.js
+const usuariosService = require('../services/usuariosService');
+const makeController = require('./genericController');
+const { validateCreateUsuario } = require('../models/usuario');
+
+const controller = makeController(usuariosService);
+
+// Wrap create to add validation
+const originalCreate = controller.create;
+controller.create = (req, res) => {
+  const validation = validateCreateUsuario(req.body);
+  if (!validation.ok) {
+    return res.status(400).json({ message: 'Faltan campos requeridos', missing: validation.missing });
+  }
+  return originalCreate(req, res);
+};
+
+module.exports = controller;
