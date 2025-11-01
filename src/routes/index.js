@@ -13,8 +13,8 @@ router.use('/reportes', require('./reportesDiarios'));
 router.use('/solicitudesMateriales', require('./solicitudesMateriales'));
 router.use('/solicitudesDinero', require('./solicitudesDinero'));
 router.use('/ordenescompra', require('./ordenesCompra'));
+router.use('/inspeccionesCalidad', require('./inspeccionesCalidad'));
 /*
-router.use('/inspecciones', require('./inspecciones'));
 router.use('/incidentes', require('./incidentes'));*/
 
 module.exports = router;

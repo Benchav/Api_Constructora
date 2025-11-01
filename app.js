@@ -17,6 +17,7 @@ const {ReporteDiarioSchema, ReporteDiarioCreate, ReporteDiarioUpdate} = require(
 const {SolicitudMaterialSchema, SolicitudMaterialCreate, SolicitudMaterialUpdate} = require('./src/models/solicitudMaterial');
 const {SolicitudDineroSchema, SolicitudDineroCreate, SolicitudDineroUpdate} = require('./src/models/solicitudDinero');
 const {OrdenCompraSchema, OrdenCompraCreate, OrdenCompraUpdate} = require('./src/models/ordenCompra');
+const {InspeccionCalidadSchema, InspeccionCalidadCreate, InspeccionCalidadUpdate} = require('./src/models/inspeccionCalidad');
 
 const app = express();
 app.use(cors());
@@ -85,6 +86,11 @@ const options = {
         OrdenCompra: OrdenCompraSchema,
         OrdenCompraCreate: OrdenCompraCreate,
         OrdenCompraUpdate: OrdenCompraUpdate,
+
+        InspeccionCalidad: InspeccionCalidadSchema,
+        InspeccionCalidadCreate: InspeccionCalidadCreate,
+        InspeccionCalidadUpdate: InspeccionCalidadUpdate,
+
       }
     }
   },
