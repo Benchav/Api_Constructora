@@ -1,5 +1,5 @@
 // src/utils/idGenerator.js
-const { v4: uuidv4 } = require('uuid'); // no instalado por defecto; usaremos alternativa si no quieres instalar uuid
+// const { v4: uuidv4 } = require('uuid'); // no instalado por defecto; usaremos alternativa si no quieres instalar uuid
 
 // Si no quieres instalar uuid: usa timestamp + random
 const generateStringId = (prefix = '') => {

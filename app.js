@@ -7,6 +7,7 @@ const swaggerUi = require('swagger-ui-express');
 
 // Importar modelos/schemas
 const { UsuarioSchema, UsuarioCreate, UsuarioUpdate } = require('./src/models/usuario');
+const { ProyectoSchema, ProyectoCreate, ProyectoUpdate } = require('./src/models/proyecto');
 
 const app = express();
 app.use(cors());
@@ -34,8 +35,12 @@ const options = {
         // Inyectamos aquí los schemas importados desde models
         Usuario: UsuarioSchema,
         UsuarioCreate: UsuarioCreate,
-        UsuarioUpdate: UsuarioUpdate
-        // Aquí más schemas cuando los agregues: Proyecto, InventarioItem, etc.
+        UsuarioUpdate: UsuarioUpdate,
+
+        Proyecto: ProyectoSchema,
+        ProyectoCreate: ProyectoCreate,
+        ProyectoUpdate: ProyectoUpdate
+        // Aquí más schemas cuando los agregues: InventarioItem, etc.
       }
     }
   },

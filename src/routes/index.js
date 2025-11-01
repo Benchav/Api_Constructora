@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 
 router.use('/usuarios', require('./usuarios'));
-/*router.use('/proyectos', require('./proyectos'));
+router.use('/proyectos', require('./proyectos'));
+/*
 router.use('/inventario', require('./inventario'));
 router.use('/empleados', require('./empleados'));
 router.use('/finanzas', require('./finanzas'));

@@ -14,8 +14,8 @@ const Proyecto = {
 // --- Schemas para Swagger ---
 
 // Schema de Proyecto (para respuestas GET)
-const ProyectoSchema = toOpenApiSchema(Proyecto, { 
-  description: 'Proyecto completo (respuesta)' 
+const ProyectoSchema = toOpenApiSchema(Proyecto, {
+  description: 'Proyecto completo (respuesta)'
 });
 
 // Schema para crear un Proyecto (para POST)
@@ -25,8 +25,8 @@ const ProyectoCreate = toOpenApiSchema(Proyecto, {
 });
 
 // Schema para actualizar un Proyecto (para PUT)
-const ProyectoUpdate = toOpenApiSchema(Proyecto, { 
-  description: 'Payload para actualizar un proyecto (parcial)' 
+const ProyectoUpdate = toOpenApiSchema(Proyecto, {
+  description: 'Payload para actualizar un proyecto (parcial)'
 });
 
 

@@ -15,7 +15,7 @@ const {
   initialOrdenesCompra,
   initialInspeccionesCalidad,
   initialIncidentesSeguridad
-} = require('../data'); // src/data/index.js que exporta todo
+} = require('../data/index'); // src/data/index.js que exporta todo
 
 // Inicializamos el "estado" en memoria copiando los seeds
 let usuarios = Array.isArray(initialUsuarios) ? [...initialUsuarios] : [];
