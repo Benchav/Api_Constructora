@@ -12,6 +12,7 @@ const {InventarioItemSchema, InventarioItemCreate, InventarioItemUpdate} = requi
 const {EmpleadoSchema, EmpleadoCreate, EmpleadoUpdate} = require('./src/models/empleado');
 const {FinanzaSchema, FinanzaCreate, FinanzaUpdate} = require ('./src/models/finanza');
 const {LicitacionSchema, LicitacionCreate, LicitacionUpdate} = require('./src/models/licitacion');
+const {PlanoSchema, PlanoCreate, PlanoUpdate} = require('./src/models/plano');
 
 const app = express();
 app.use(cors());
@@ -60,6 +61,10 @@ const options = {
         Licitacion: LicitacionSchema,
         LicitacionCreate: LicitacionCreate,
         LicitacionUpdate: LicitacionUpdate,
+
+        Planos: PlanoSchema,
+        PlanoCreate: PlanoCreate,
+        PlanoUpdate: PlanoUpdate,
         
       }
     }
