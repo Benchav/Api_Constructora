@@ -4,14 +4,14 @@ const router = express.Router();
 const ctrl = require('../controllers/usuariosController');
 
 /**
- * @openapi
+ * @swagger
  * tags:
  *   - name: Usuarios
  *     description: Operaciones sobre usuarios
  */
 
 /**
- * @openapi
+ * @swagger
  * /api/usuarios:
  *   get:
  *     tags:
@@ -30,7 +30,7 @@ const ctrl = require('../controllers/usuariosController');
 router.get('/', ctrl.list);
 
 /**
- * @openapi
+ * @swagger
  * /api/usuarios:
  *   post:
  *     tags:
@@ -53,7 +53,7 @@ router.get('/', ctrl.list);
 router.post('/', ctrl.create);
 
 /**
- * @openapi
+ * @swagger
  * /api/usuarios/{id}:
  *   put:
  *     tags:
@@ -82,7 +82,7 @@ router.post('/', ctrl.create);
 router.put('/:id', ctrl.update);
 
 /**
- * @openapi
+ * @swagger
  * /api/usuarios/{id}:
  *   delete:
  *     tags:
