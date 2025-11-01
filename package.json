@@ -1,7 +1,7 @@
 {
   "name": "api_constructora",
   "version": "1.0.0",
-  "description": "API en memoria para proyecto de construcción (CRUD completo)",
+  "description": "Api constructora en linea",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
