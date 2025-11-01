@@ -12,7 +12,7 @@ const ctrl = require('../controllers/solicitudesMaterialesController');
 
 /**
  * @swagger
- * /api/solicitudes-material:
+ * /api/SolicitudesMateriales:
  *   get:
  *     tags:
  *       - SolicitudesMateriales
@@ -31,7 +31,7 @@ router.get('/', ctrl.list);
 
 /**
  * @swagger
- * /api/solicitudes-material:
+ * /api/SolicitudesMateriales:
  *   post:
  *     tags:
  *       - SolicitudesMateriales
@@ -56,7 +56,7 @@ router.post('/', ctrl.create);
 
 /**
  * @swagger
- * /api/solicitudes-material/{id}:
+ * /api/SolicitudesMateriales/{id}:
  *   put:
  *     tags:
  *       - SolicitudesMateriales
@@ -87,7 +87,7 @@ router.put('/:id', ctrl.update);
 
 /**
  * @swagger
- * /api/solicitudes-material/{id}:
+ * /api/SolicitudesMateriales/{id}:
  *   delete:
  *     tags:
  *       - SolicitudesMateriales
@@ -116,7 +116,7 @@ router.delete('/:id', ctrl.remove);
 
 /**
  * @swagger
- * /api/solicitudes-material/{id}:
+ * /api/SolicitudesMateriales/{id}:
  *   get:
  *     tags:
  *       - SolicitudesMateriales
