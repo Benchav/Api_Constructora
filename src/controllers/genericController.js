@@ -1,36 +1,70 @@
-const makeController = (service) => ({
-  list: (req, res) => {
-    const items = service.findAll();
-    res.json(items);
-  },
 
-  getById: (req, res) => {
-    const { id } = req.params;
-    const item = service.findById(id);
-    if (!item) return res.status(404).json({ message: 'No encontrado' });
-    res.json(item);
-  },
+function makeController(service) {
+  return {
+    
+ 
+    list: async (req, res) => {
+      try {
+    
+        const items = await service.findAll();
+        res.json(items);
+      } catch (error) {
 
-  create: (req, res) => {
-    const data = req.body;
-    const newItem = service.create(data);
-    res.status(201).json(newItem);
-  },
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener la lista de elementos' });
+      }
+    },
 
-  update: (req, res) => {
-    const { id } = req.params;
-    const data = req.body;
-    const updated = service.update(id, data);
-    if (!updated) return res.status(404).json({ message: 'No encontrado' });
-    res.json(updated);
-  },
+    getById: async (req, res) => {
+      try {
+        const item = await service.findById(req.params.id);
+        if (!item) {
 
-  remove: (req, res) => {
-    const { id } = req.params;
-    const ok = service.remove(id);
-    if (!ok) return res.status(404).json({ message: 'No encontrado' });
-    res.json({ message: 'Eliminado correctamente' });
-  }
-});
+          return res.status(404).json({ message: 'Elemento no encontrado' });
+        }
+        res.json(item);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener el elemento' });
+      }
+    },
+
+    create: async (req, res) => {
+      try {
+        const newItem = await service.create(req.body);
+        res.status(201).json(newItem);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al crear el elemento' });
+      }
+    },
+
+    update: async (req, res) => {
+      try {
+        const updatedItem = await service.update(req.params.id, req.body);
+        if (!updatedItem) {
+          return res.status(404).json({ message: 'Elemento no encontrado' });
+        }
+        res.json(updatedItem);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al actualizar el elemento' });
+      }
+    },
+
+    remove: async (req, res) => {
+      try {
+        const deleted = await service.remove(req.params.id);
+        if (!deleted) {
+          return res.status(404).json({ message: 'Elemento no encontrado' });
+        }
+        res.json({ message: 'Eliminado correctamente' });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al eliminar el elemento' });
+      }
+    }
+  };
+}
 
 module.exports = makeController;

@@ -1,12 +1,9 @@
 const GenericService = require('./genericService');
-const { getSolicitudesDinero, setSolicitudesDinero } = require('../storage/inMemoryDb');
 
-const solicitudesDineroService = new GenericService({
-  getter: getSolicitudesDinero,
-  updater: setSolicitudesDinero,
+const solicitudesDineroService = new GenericService('solicitudes-dinero', {
   idField: 'id',
   idIsNumber: false,
-  idPrefix: 'sd'
+  idPrefix: 'SOL-DIN-'
 });
 
 module.exports = solicitudesDineroService;

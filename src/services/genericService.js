@@ -1,55 +1,176 @@
-const { generateNumericId, generateStringId } = require('../utils/idGenerator');
+const { db } = require('../config/firebase');
+const { generateStringId } = require('../utils/idGenerator');
+
+
+const countersRef = db.collection('counters');
+
+/**
+ * Genera un nuevo ID numérico de forma atómica (segura para concurrencia).
+ * Lee un contador de la colección 'counters', lo incrementa y devuelve el nuevo valor.
+ * @param {string} collectionName 
+ */
+const generateNumericId = async (collectionName) => {
+  const counterDoc = countersRef.doc(collectionName);
+
+  return db.runTransaction(async (transaction) => {
+    const doc = await transaction.get(counterDoc);
+    let newId = 1; 
+    
+    if (doc.exists) {
+
+      newId = doc.data().currentId + 1;
+    }
+    
+
+    transaction.set(counterDoc, { currentId: newId });
+    
+    return newId;
+  });
+};
+
 
 class GenericService {
-  constructor({ getter, updater, idField = 'id', idIsNumber = true, idPrefix = '' }) {
-    this.getter = getter;
-    this.updater = updater;
+  /**
+   * @param {string} collectionName - El nombre de la colección en Firestore.
+   * @param {object} options - Opciones: idField, idIsNumber, idPrefix.
+   */
+  constructor(collectionName, { idField = 'id', idIsNumber = false, idPrefix = '' } = {}) {
+    if (!collectionName) {
+      throw new Error('Se requiere un nombre de colección de Firestore.');
+    }
+    this.collection = db.collection(collectionName);
+    this.collectionName = collectionName; 
     this.idField = idField;
     this.idIsNumber = idIsNumber;
     this.idPrefix = idPrefix;
   }
 
-  findAll() {
-    return this.getter();
-  }
-
-  findById(id) {
-    const arr = this.getter();
-    return arr.find(item => String(item[this.idField]) === String(id));
-  }
-
-  create(data) {
-    const arr = this.getter();
-    let newId;
-    if (this.idIsNumber) {
-      newId = generateNumericId(arr, this.idField);
-    } else {
-      newId = generateStringId(this.idPrefix);
+  
+  async findAll() {
+    try {
+      const snapshot = await this.collection.get();
+      if (snapshot.empty) {
+        return [];
+      }
+    
+      return snapshot.docs.map(doc => doc.data());
+    } catch (error) {
+      console.error(`Error al buscar todo en ${this.collectionName}:`, error);
+      throw error; 
     }
-    const newItem = { ...data, [this.idField]: newId };
-    const newArr = [...arr, newItem];
-    this.updater(newArr);
-    return newItem;
   }
 
-  update(id, data) {
-    const arr = this.getter();
-    const idx = arr.findIndex(item => String(item[this.idField]) === String(id));
-    if (idx === -1) return null;
-    const updated = { ...arr[idx], ...data, [this.idField]: arr[idx][this.idField] };
-    const newArr = [...arr];
-    newArr[idx] = updated;
-    this.updater(newArr);
-    return updated;
+ 
+  async findById(id) {
+    try {
+      
+      const docRef = this.collection.doc(String(id));
+      const doc = await docRef.get();
+      
+      if (!doc.exists) {
+        return null;
+      }
+      return doc.data(); 
+    } catch (error) {
+      console.error(`Error al buscar por ID ${id} en ${this.collectionName}:`, error);
+      throw error;
+    }
   }
 
-  remove(id) {
-    const arr = this.getter();
-    const idx = arr.findIndex(item => String(item[this.idField]) === String(id));
-    if (idx === -1) return false;
-    const newArr = arr.filter((_, i) => i !== idx);
-    this.updater(newArr);
-    return true;
+ 
+  async create(data) {
+    try {
+      let newId;
+
+    
+      if (this.idIsNumber) {
+        newId = await generateNumericId(this.collectionName);
+      } else {
+        newId = generateStringId(this.idPrefix);
+      }
+
+      const newItem = {
+        ...data,
+        [this.idField]: newId 
+      };
+
+    
+      await this.collection.doc(String(newId)).set(newItem);
+      
+      return newItem; 
+    } catch (error) {
+      console.error(`Error al crear en ${this.collectionName}:`, error);
+      throw error;
+    }
+  }
+
+  
+  async update(id, data) {
+    try {
+      const docRef = this.collection.doc(String(id));
+      
+    
+      const doc = await docRef.get();
+      if (!doc.exists) {
+        return null; 
+      }
+
+ 
+      await docRef.set(data, { merge: true });
+
+     
+      const updatedDoc = await docRef.get();
+      return updatedDoc.data();
+    } catch (error) {
+      console.error(`Error al actualizar ID ${id} en ${this.collectionName}:`, error);
+      throw error;
+    }
+  }
+
+ 
+  async remove(id) {
+    try {
+      const docRef = this.collection.doc(String(id));
+      
+      const doc = await docRef.get();
+      if (!doc.exists) {
+        return null; 
+      }
+
+      await docRef.delete();
+      return { id }; 
+    } catch (error) {
+      console.error(`Error al eliminar ID ${id} en ${this.collectionName}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Método de utilidad para buscar por un campo específico.
+   * @param {string} field - El nombre del campo (ej: 'username')
+   * @param {string} value - El valor a buscar
+   * @param {boolean} single - ¿Devolver solo un resultado?
+   */
+  async findByField(field, value, single = false) {
+    try {
+      let query = this.collection.where(field, '==', value);
+      if (single) {
+        query = query.limit(1);
+      }
+      
+      const snapshot = await query.get();
+      
+      if (snapshot.empty) {
+        return single ? null : [];
+      }
+      
+      const results = snapshot.docs.map(doc => doc.data());
+      return single ? results[0] : results;
+
+    } catch (error) {
+      console.error(`Error al buscar por campo ${field} en ${this.collectionName}:`, error);
+      throw error;
+    }
   }
 }
 

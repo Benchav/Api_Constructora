@@ -1,9 +1,6 @@
 const GenericService = require('./genericService');
-const { getInventario, setInventario } = require('../storage/inMemoryDb');
 
-const inventarioService = new GenericService({
-  getter: getInventario,
-  updater: setInventario,
+const inventarioService = new GenericService('inventario', {
   idField: 'id',
   idIsNumber: true
 });

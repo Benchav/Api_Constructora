@@ -1,39 +1,38 @@
 const admin = require('firebase-admin');
 
-
 const requiredEnv = ['FIREBASE_PROJECT_ID', 'FIREBASE_CLIENT_EMAIL', 'FIREBASE_PRIVATE_KEY'];
 const missingEnv = requiredEnv.filter(key => !process.env[key]);
 
 if (missingEnv.length > 0) {
-  throw new Error(`Variables de entorno de Firebase faltantes: ${missingEnv.join(', ')}. Asegúrate de que tu .env esté completo.`);
+  throw new Error(
+    `Variables de entorno de Firebase faltantes: ${missingEnv.join(', ')}. ` +
+    `Asegúrate de que tu archivo .env esté completo.`
+  );
 }
 
-
-const privateKey = process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n');
-
+let privateKey = process.env.FIREBASE_PRIVATE_KEY;
+privateKey = privateKey.replace(/\\n/g, '\n').replace(/"/g, ''); 
 
 const serviceAccount = {
-  type: "service_account", 
+  type: 'service_account',
   project_id: process.env.FIREBASE_PROJECT_ID,
   client_email: process.env.FIREBASE_CLIENT_EMAIL,
   private_key: privateKey,
-
 };
 
 try {
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
+  }
 
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-  });
-
-  console.log('Conectado a Firebase exitosamente.');
-
+  console.log('✅ Conectado a Firebase exitosamente.');
 } catch (error) {
-  console.error('Error al inicializar Firebase Admin:', error);
-  console.error('Verifica las variables de entorno de FIREBASE_ en tu .env.');
-  process.exit(1); 
+  console.error('❌ Error al inicializar Firebase Admin:', error);
+  console.error('Verifica las variables FIREBASE_ en tu .env.');
+  process.exit(1);
 }
 
 const db = admin.firestore();
-
 module.exports = { db, admin };

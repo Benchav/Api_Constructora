@@ -1,12 +1,9 @@
 const GenericService = require('./genericService');
-const { getOrdenesCompra, setOrdenesCompra } = require('../storage/inMemoryDb');
 
-const ordenesCompraService = new GenericService({
-  getter: getOrdenesCompra,
-  updater: setOrdenesCompra,
+const ordenesCompraService = new GenericService('ordenes-compra', {
   idField: 'id',
   idIsNumber: false,
-  idPrefix: 'oc'
+  idPrefix: 'OC-'
 });
 
 module.exports = ordenesCompraService;

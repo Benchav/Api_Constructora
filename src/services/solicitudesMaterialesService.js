@@ -1,12 +1,9 @@
 const GenericService = require('./genericService');
-const { getSolicitudesMateriales, setSolicitudesMateriales } = require('../storage/inMemoryDb');
 
-const solicitudesMaterialesService = new GenericService({
-  getter: getSolicitudesMateriales,
-  updater: setSolicitudesMateriales,
+const solicitudesMaterialesService = new GenericService('solicitudes-material', {
   idField: 'id',
   idIsNumber: false,
-  idPrefix: 'sm'
+  idPrefix: 'SOL-MAT-'
 });
 
 module.exports = solicitudesMaterialesService;

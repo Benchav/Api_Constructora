@@ -1,12 +1,9 @@
 const GenericService = require('./genericService');
-const { getIncidentes, setIncidentes } = require('../storage/inMemoryDb');
 
-const incidentesSeguridadService = new GenericService({
-  getter: getIncidentes,
-  updater: setIncidentes,
+const incidentesSeguridadService = new GenericService('incidentes', {
   idField: 'id',
   idIsNumber: false,
-  idPrefix: 'is'
+  idPrefix: 'INC-'
 });
 
 module.exports = incidentesSeguridadService;

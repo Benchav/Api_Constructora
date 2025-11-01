@@ -1,12 +1,9 @@
 const GenericService = require('./genericService');
-const { getInspecciones, setInspecciones } = require('../storage/inMemoryDb');
 
-const inspeccionesCalidadService = new GenericService({
-  getter: getInspecciones,
-  updater: setInspecciones,
+const inspeccionesCalidadService = new GenericService('inspecciones', {
   idField: 'id',
   idIsNumber: false,
-  idPrefix: 'ic'
+  idPrefix: 'INSP-'
 });
 
 module.exports = inspeccionesCalidadService;

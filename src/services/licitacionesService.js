@@ -1,12 +1,9 @@
 const GenericService = require('./genericService');
-const { getLicitaciones, setLicitaciones } = require('../storage/inMemoryDb');
 
-const licitacionesService = new GenericService({
-  getter: getLicitaciones,
-  updater: setLicitaciones,
+const licitacionesService = new GenericService('licitaciones', {
   idField: 'id',
   idIsNumber: false,
-  idPrefix: 'l'
+  idPrefix: 'LIC-'
 });
 
 module.exports = licitacionesService;

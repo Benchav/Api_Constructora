@@ -1,12 +1,9 @@
 const GenericService = require('./genericService');
-const { getPlanos, setPlanos } = require('../storage/inMemoryDb');
 
-const planosService = new GenericService({
-  getter: getPlanos,
-  updater: setPlanos,
+const planosService = new GenericService('planos', {
   idField: 'id',
   idIsNumber: false,
-  idPrefix: 'p'
+  idPrefix: 'PLN-'
 });
 
 module.exports = planosService;
