@@ -5,13 +5,13 @@ const ctrl = require('../controllers/ordenesCompraController');
 /**
  * @swagger
  * tags:
- *   - name: OrdenesCompra
+ *   - name: ordenes-compra
  *     description: Operaciones sobre órdenes de compra
  */
 
 /**
  * @swagger
- * /api/OrdenesCompra:
+ * /api/ordenes-compra:
  *   get:
  *     tags:
  *       - OrdenesCompra
@@ -30,7 +30,7 @@ router.get('/', ctrl.list);
 
 /**
  * @swagger
- * /api/OrdenesCompra:
+ * /api/ordenes-compra:
  *   post:
  *     tags:
  *       - OrdenesCompra
@@ -55,7 +55,7 @@ router.post('/', ctrl.create);
 
 /**
  * @swagger
- * /api/OrdenesCompra/{id}:
+ * /api/ordenes-compra/{id}:
  *   put:
  *     tags:
  *       - OrdenesCompra
@@ -86,7 +86,7 @@ router.put('/:id', ctrl.update);
 
 /**
  * @swagger
- * /api/ordenescompra/{id}:
+ * /api/ordenes-compra/{id}:
  *   delete:
  *     tags:
  *       - OrdenesCompra
@@ -115,7 +115,7 @@ router.delete('/:id', ctrl.remove);
 
 /**
  * @swagger
- * /api/ordenescompra/{id}:
+ * /api/ordenes-compra/{id}:
  *   get:
  *     tags:
  *       - OrdenesCompra
