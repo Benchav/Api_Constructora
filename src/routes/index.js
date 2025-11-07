@@ -47,14 +47,14 @@ router.use(
 // Empleados
 router.use(
   '/empleados',
-  authorizeRoles('CEO', 'Gerente General', 'RRHH', 'Asistente Administrativo'),
+  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'RRHH', 'Asistente Administrativo'),
   require('./empleados')
 );
 
 // Finanzas
 router.use(
   '/finanzas',
-  authorizeRoles('CEO', 'Director Finanzas', 'Gerente General', 'Asistente Administrativo'),
+  authorizeRoles('CEO', 'Director Finanzas', 'Gerente General', 'Director de Proyectos', 'Asistente Administrativo'),
   require('./finanzas')
 );
 
@@ -91,7 +91,7 @@ router.use(
 // Solicitudes de materiales
 router.use(
   '/solicitudesMateriales',
-  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'Jefe de Obra', 'Jefe de Logística', 'Bodeguero'),
+  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'Director Finanzas', 'Jefe de Obra', 'Jefe de Logística', 'Bodeguero'),
   require('./solicitudesMateriales')
 );
 
@@ -119,7 +119,7 @@ router.use(
 // Incidentes de seguridad
 router.use(
   '/incidentesSeguridad',
-  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'RRHH', 'Jefe de Obra'),
+  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'RRHH', 'Maestro de Obra', 'Jefe de Obra'),
   require('./incidentesSeguridad')
 );
 
