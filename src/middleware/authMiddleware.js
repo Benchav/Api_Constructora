@@ -5,22 +5,24 @@ require('dotenv').config();
 
 const SECRET = process.env.JWT_SECRET || 'secretito';
 
+/* ----------------------- MAPA DE PERMISOS ACTUALIZADO ---------------------- */
 const permisos = {
   CEO: ['*'],
-  'Gerente General': ['proyectos', 'reportes', 'finanzas'],
-  'Director de Proyectos': ['proyectos', 'reportes'],
-  'Director Finanzas': ['finanzas', 'reportes'],
-  'Director Comercial': ['ventas', 'reportes'],
-  'Jefe Oficina Técnica': ['planos', 'reportes'],
-  'Jefe de Logística': ['compras', 'inventario'],
-  RRHH: ['personal'],
-  'Asistente Administrativo': ['reportes', 'personal'],
-  'Jefe de Obra': ['reportes', 'materiales'],
-  'Maestro de Obra': ['reportes'],
-  Bodeguero: ['inventario'],
-  Albañil: ['planos'],
-  'Operador de Maquinaria': ['planos'],
+  'Gerente General': ['proyectos', 'reportes', 'finanzas', 'licitaciones', 'inventario'],
+  'Director de Proyectos': ['proyectos', 'reportes', 'planos', 'materiales', 'inspeccionesCalidad', 'solicitudesMateriales'],
+  'Director Finanzas': ['finanzas', 'reportes', 'solicitudesDinero', 'ordenescompra', 'proyectos'],
+  'Director Comercial': ['licitaciones', 'reportes', 'proyectos'],
+  'Jefe Oficina Tecnica': ['planos', 'proyectos', 'reportes', 'inspeccionesCalidad'],
+  'Jefe de Logística': ['inventario', 'ordenescompra', 'solicitudesMateriales', 'proyectos'],
+  RRHH: ['personal', 'incidentesSeguridad', 'reportes'],
+  'Asistente Administrativo': ['finanzas', 'reportes', 'proyectos'],
+  'Jefe de Obra': ['proyectos', 'planos', 'reportes', 'materiales', 'calidad', 'solicitudesMateriales', 'solicitudesDinero', 'incidentesSeguridad', 'inventario'],
+  'Maestro de Obra': ['proyectos', 'planos', 'reportes'],
+  Bodeguero: ['inventario', 'solicitudesMateriales', 'proyectos'],
+  Albañil: ['proyectos', 'planos'],
+  'Operador de Maquinaria': ['proyectos', 'planos']
 };
+
 
 /* -------------------------- UTILIDAD PARA TOKEN -------------------------- */
 function extractTokenFromReq(req) {
@@ -47,8 +49,8 @@ function normalizeRol(rol) {
   return rol
     ? rol
         .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '') // quita tildes
-        .replace(/\s+/g, ' ') // elimina espacios extra
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, ' ')
         .trim()
         .toLowerCase()
     : '';
@@ -56,11 +58,9 @@ function normalizeRol(rol) {
 
 /* --------------------------- MIDDLEWARE PROTECT --------------------------- */
 async function protect(req, res, next) {
-  console.log('--- protect() called ---');
   const token = extractTokenFromReq(req);
 
   if (!token) {
-    console.log('protect: No token found in request.');
     return res
       .status(401)
       .json({ message: 'No autenticado. Proporcione Authorization: Bearer <token>' });
@@ -68,19 +68,15 @@ async function protect(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, SECRET);
-    console.log('protect: JWT decoded ->', decoded);
-
     const user = await usuariosService.findById(decoded.id);
 
     if (!user) {
-      console.log('protect: User not found for id from token:', decoded.id);
       return res.status(401).json({ message: 'Usuario no encontrado' });
     }
 
     req.user = user;
     next();
   } catch (err) {
-    console.log('protect: JWT verify error or DB error ->', err?.message);
     return res.status(401).json({ message: 'Token inválido o expirado' });
   }
 }
@@ -91,9 +87,8 @@ function authorizeRoles(...allowedRoles) {
     if (!req.user) return res.status(401).json({ message: 'No autenticado' });
 
     const userRolNorm = normalizeRol(req.user.rol);
-    const allowedNorms = allowedRoles.map(normalizeRol);
+    const allowedNorms = (allowedRoles || []).map(normalizeRol);
 
-    // Buscar rol equivalente en permisos
     const rolKey = Object.keys(permisos).find(
       (r) => normalizeRol(r) === userRolNorm
     );
@@ -107,35 +102,32 @@ function authorizeRoles(...allowedRoles) {
     // CEO tiene acceso total
     if (rolKey.toLowerCase() === 'ceo') return next();
 
-    // Si está explícitamente en la lista permitida
-    if (allowedNorms.includes(userRolNorm)) return next();
+    // Si se pasaron roles explícitos y coincide, pasa
+    if (allowedRoles && allowedRoles.length > 0 && allowedNorms.includes(userRolNorm)) {
+      return next();
+    }
 
-    // Detección automática del módulo desde la URL
-    const path = req.baseUrl || req.originalUrl;
-    const modulo = path.split('/')[2]?.split('?')[0];
-
-    const modulosConocidos = [
-      'proyectos', 'planos', 'finanzas', 'inventario', 'reportes',
-      'compras', 'personal', 'materiales', 'ventas',
-      'usuarios', 'empleados', 'licitaciones', 'solicitudesMateriales',
-      'solicitudesDinero', 'ordenescompra', 'inspeccionesCalidad', 'incidentesSeguridad',
-    ];
-
-    let moduloActual = 'desconocido';
-    if (modulosConocidos.includes(modulo)) moduloActual = modulo;
+    // Obtén el segmento real del path (más robusto)
+    const parts = (req.originalUrl || req.baseUrl || '').split('/').filter(Boolean);
+    // parts ejemplo: ['api','proyectos'] o ['api','solicitudesDinero']
+    const modulo = parts[1] || parts[0] || '';
 
     const mapPermisos = {
       ordenescompra: 'compras',
-      solicitudesMateriales: 'materiales',
+      solicitudesmateriales: 'materiales',
+      solicitudesdinero: 'finanzas',
       empleados: 'personal',
-      reportesDiarios: 'reportes',
+      reportesdiarios: 'reportes',
+      inspeccionescalidad: 'calidad',
+      incidentesseguridad: 'seguridad'
     };
 
-    const moduloPermiso = mapPermisos[moduloActual] || moduloActual;
+    const moduloNorm = modulo.toLowerCase();
+    const moduloPermiso = mapPermisos[moduloNorm] || moduloNorm;
 
     const puedeAcceder =
       permisos[rolKey]?.includes('*') ||
-      permisos[rolKey]?.includes(moduloPermiso);
+      permisos[rolKey]?.some(m => String(m).toLowerCase() === moduloPermiso);
 
     if (puedeAcceder) return next();
 
@@ -144,6 +136,7 @@ function authorizeRoles(...allowedRoles) {
     });
   };
 }
+
 
 /* ---------------------------- MODO BASICO LEGADO --------------------------- */
 function authorize(moduleOrRoles) {
