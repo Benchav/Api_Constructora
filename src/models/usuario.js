@@ -1,7 +1,6 @@
 // src/models/usuario.js
 const { toOpenApiSchema } = require('./_schemaHelper');
 
-// Objeto base de la entidad Usuario
 const Usuario = {
   id: { type: 'integer', example: 1 },
   nombre: { type: 'string', example: 'Ana Martínez' },
@@ -11,7 +10,6 @@ const Usuario = {
   proyectoAsignadoId: { type: 'integer', nullable: true, example: 100 }
 };
 
-// --- Schemas para Swagger ---
 
 const UsuarioSchema = toOpenApiSchema(Usuario, { 
   description: 'Usuario completo (respuesta)' 
@@ -26,7 +24,7 @@ const UsuarioUpdate = toOpenApiSchema(Usuario, {
   description: 'Payload para actualizar usuario (parcial)' 
 });
 
-// --- Funciones de Validación ---
+
 
 function validateCreateUsuario(payload) {
   const required = ['nombre', 'rol', 'username', 'password'];

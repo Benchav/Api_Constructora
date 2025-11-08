@@ -29,6 +29,7 @@ router.use(
     'Jefe de Logística',
     'Jefe de Obra',
     'Maestro de Obra',
+    'RRHH',
     'Bodeguero',
     'Asistente Administrativo',
     'Albañil',
@@ -47,14 +48,14 @@ router.use(
 // Empleados
 router.use(
   '/empleados',
-  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'RRHH', 'Asistente Administrativo'),
+  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'Director Comercial', 'RRHH', 'Asistente Administrativo'),
   require('./empleados')
 );
 
 // Finanzas
 router.use(
   '/finanzas',
-  authorizeRoles('CEO', 'Director Finanzas', 'Gerente General', 'Director de Proyectos', 'Asistente Administrativo'),
+  authorizeRoles('CEO', 'Director Finanzas', 'Gerente General', 'Director Comercial', 'Director de Proyectos', 'Asistente Administrativo'),
   require('./finanzas')
 );
 
@@ -91,14 +92,14 @@ router.use(
 // Solicitudes de materiales
 router.use(
   '/solicitudesMateriales',
-  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'Director Finanzas', 'Jefe de Obra', 'Jefe de Logística', 'Bodeguero'),
+  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'Director Comercial', 'Jefe Oficina Tecnica', 'Director Finanzas', 'Jefe de Obra', 'Jefe de Logística', 'Bodeguero'),
   require('./solicitudesMateriales')
 );
 
 // Solicitudes de dinero
 router.use(
   '/solicitudesDinero',
-  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'Director Finanzas', 'Gerente General', 'Jefe de Obra', 'Asistente Administrativo'),
+  authorizeRoles('CEO', 'Gerente General', 'Director de Proyectos', 'Director Comercial', 'Director Finanzas', 'Gerente General', 'Jefe de Obra', 'Asistente Administrativo'),
   require('./solicitudesDinero')
 );
 
