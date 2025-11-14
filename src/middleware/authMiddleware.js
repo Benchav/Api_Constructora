@@ -1,11 +1,9 @@
-// src/middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
 const usuariosService = require('../services/usuariosService');
 require('dotenv').config();
 
 const SECRET = process.env.JWT_SECRET || 'secretito';
 
-/* ----------------------- MAPA DE PERMISOS ACTUALIZADO ---------------------- */
 const permisos = {
   CEO: ['*'],
   'Gerente General': ['proyectos', 'reportes', 'finanzas', 'licitaciones', 'inventario'],
@@ -24,7 +22,7 @@ const permisos = {
 };
 
 
-/* -------------------------- UTILIDAD PARA TOKEN -------------------------- */
+
 function extractTokenFromReq(req) {
   const authHeader = req.headers.authorization || req.headers.Authorization;
   const xToken =
@@ -44,7 +42,7 @@ function extractTokenFromReq(req) {
   return null;
 }
 
-/* ------------------------------ NORMALIZADOR ------------------------------ */
+
 function normalizeRol(rol) {
   return rol
     ? rol
@@ -56,7 +54,7 @@ function normalizeRol(rol) {
     : '';
 }
 
-/* --------------------------- MIDDLEWARE PROTECT --------------------------- */
+
 async function protect(req, res, next) {
   const token = extractTokenFromReq(req);
 
@@ -81,7 +79,6 @@ async function protect(req, res, next) {
   }
 }
 
-/* ------------------------- MIDDLEWARE AUTORIZACION ------------------------ */
 function authorizeRoles(...allowedRoles) {
   return (req, res, next) => {
     if (!req.user) return res.status(401).json({ message: 'No autenticado' });
@@ -99,17 +96,16 @@ function authorizeRoles(...allowedRoles) {
         .json({ message: `Rol '${req.user.rol}' no reconocido` });
     }
 
-    // CEO tiene acceso total
     if (rolKey.toLowerCase() === 'ceo') return next();
 
-    // Si se pasaron roles explícitos y coincide, pasa
+   
     if (allowedRoles && allowedRoles.length > 0 && allowedNorms.includes(userRolNorm)) {
       return next();
     }
 
-    // Obtén el segmento real del path (más robusto)
+
     const parts = (req.originalUrl || req.baseUrl || '').split('/').filter(Boolean);
-    // parts ejemplo: ['api','proyectos'] o ['api','solicitudesDinero']
+
     const modulo = parts[1] || parts[0] || '';
 
     const mapPermisos = {
@@ -138,7 +134,7 @@ function authorizeRoles(...allowedRoles) {
 }
 
 
-/* ---------------------------- MODO BASICO LEGADO --------------------------- */
+
 function authorize(moduleOrRoles) {
   return (req, res, next) => {
     if (!req.user)

@@ -1,4 +1,3 @@
-// app.js
 const express = require('express');
 const cors = require('cors');
 const routes = require('./src/routes');
@@ -26,7 +25,7 @@ app.use(express.json());
 app.use('/api', routes);
 
 app.get('/', (req, res) => {
-  res.send({ message: 'API en memoria (construcción) - /api' });
+  res.send({ message: 'API en linea (construcción) - /api' });
 });
 
 // Swagger options
@@ -34,9 +33,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API Construcción - En Memoria',
+      title: 'API Construcción en Linea',
       version: '1.0.0',
-      description: 'API REST en memoria para tu Frontend'
+      description: 'API REST en Linea para tu Frontend'
     },
     servers: [{ url: 'http://localhost:3000' }],
     components: {
@@ -48,7 +47,7 @@ const options = {
         }
       },
       schemas: {
-        // nombres de schemas deben coincidir exactamente con los $ref usados en tus rutas
+      
         Usuario: UsuarioSchema,
         UsuarioCreate: UsuarioCreate,
         UsuarioUpdate: UsuarioUpdate,
@@ -102,11 +101,11 @@ const options = {
         IncidenteSeguridadUpdate: IncidenteSeguridadUpdate
       }
     },
-    // opcional: agregar seguridad global (si quieres que todas las rutas requieran token por defecto en la UI)
+    
      security: [{ bearerAuth: [] }]
   },
   apis: [
-    './src/routes/*.js' // tus JSDoc en rutas
+    './src/routes/*.js' 
   ]
 };
 

@@ -5,8 +5,8 @@ const { generateStringId } = require('../utils/idGenerator');
 const countersRef = db.collection('counters');
 
 /**
- * Genera un nuevo ID numérico de forma atómica (segura para concurrencia).
- * Lee un contador de la colección 'counters', lo incrementa y devuelve el nuevo valor.
+ * 
+ * 
  * @param {string} collectionName 
  */
 const generateNumericId = async (collectionName) => {
@@ -31,8 +31,8 @@ const generateNumericId = async (collectionName) => {
 
 class GenericService {
   /**
-   * @param {string} collectionName - El nombre de la colección en Firestore.
-   * @param {object} options - Opciones: idField, idIsNumber, idPrefix.
+   * @param {string} collectionName 
+   * @param {object} options 
    */
   constructor(collectionName, { idField = 'id', idIsNumber = false, idPrefix = '' } = {}) {
     if (!collectionName) {
@@ -146,10 +146,10 @@ class GenericService {
   }
 
   /**
-   * Método de utilidad para buscar por un campo específico.
-   * @param {string} field - El nombre del campo (ej: 'username')
-   * @param {string} value - El valor a buscar
-   * @param {boolean} single - ¿Devolver solo un resultado?
+   * 
+   * @param {string} field 
+   * @param {string} value 
+   * @param {boolean} single 
    */
   async findByField(field, value, single = false) {
     try {

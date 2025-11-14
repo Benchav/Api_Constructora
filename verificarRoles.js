@@ -1,8 +1,7 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000/api'; // Cambia si tu backend usa otro host o puerto
+const BASE_URL = 'http://localhost:3000/api'; 
 
-// Credenciales según tu BD
 const usuarios = [
   { rol: 'CEO', username: 'ceo', password: '123' },
   { rol: 'Gerente General', username: 'gerente.luis', password: '123' },
@@ -20,7 +19,7 @@ const usuarios = [
   { rol: 'Operador de Maquinaria', username: 'op.ernesto', password: '123' },
 ];
 
-// Endpoints reales mapeados a tus rutas actuales
+
 const endpoints = [
   '/usuarios',
   '/proyectos',
