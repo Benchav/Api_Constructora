@@ -112,7 +112,7 @@ router.use(
 
 router.use(
   '/inspeccionesCalidad',
-  authorizeRoles('CEO', 'Director de Proyectos', 'Jefe Oficina Tecnica', 'Jefe de Obra'),
+  authorizeRoles('CEO', 'Director de Proyectos', 'Gerente General','Jefe Oficina Tecnica', 'Jefe de Obra'),
   require('./inspeccionesCalidad')
 );
 
