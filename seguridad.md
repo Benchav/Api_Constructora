@@ -1,6 +1,6 @@
 # Informe de Seguridad - API Constructora
 
-Fecha: 2026-03-27
+Fecha: 27/3/2026
 Alcance: revision de backend completo (Node.js + Express + Firebase)
 
 ## Resumen ejecutivo

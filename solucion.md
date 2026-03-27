@@ -177,7 +177,7 @@ Nota: para usuarios, normalmente no debes permitir actualizar rol desde endpoint
 
 ### Variable de entorno ejemplo
 
-    CORS_ORIGINS=https://tu-frontend.com,https://admin.tu-frontend.com
+    CORS_ORIGINS=https://rikiconstructora.vercel.app/
 
 ---
 
