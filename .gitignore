@@ -5,6 +5,7 @@
 
 # Carpetas de dependencias
 node_modules/
+node_modules
 
 # Archivos de logs
 npm-debug.log*
