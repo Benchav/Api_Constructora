@@ -2,6 +2,14 @@ const express = require('express');
 const router = express.Router();
 const { login, me } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
+const rateLimit = require('express-rate-limit');
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 10, // limite cada IP a 10 requests por windowMs
+  message: { message: "Demasiados intentos de inicio de sesión desde esta IP, por favor intente nuevamente después de 15 minutos" }
+});
+
 
 /**
  * @swagger
@@ -25,7 +33,7 @@ const { protect } = require('../middleware/authMiddleware');
  *       "200":
  *         description: Devuelve token y usuario
  */
-router.post('/login', login);
+router.post('/login', loginLimiter, login);
 
 /**
  * @swagger

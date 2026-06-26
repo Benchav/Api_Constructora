@@ -3,6 +3,7 @@ const cors = require('cors');
 const routes = require('./src/routes');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const helmet = require('helmet');
 
 const { UsuarioSchema, UsuarioCreate, UsuarioUpdate } = require('./src/models/usuario');
 const { ProyectoSchema, ProyectoCreate, ProyectoUpdate } = require('./src/models/proyecto');
@@ -19,8 +20,9 @@ const { InspeccionCalidadSchema, InspeccionCalidadCreate, InspeccionCalidadUpdat
 const { IncidenteSeguridadSchema, IncidenteSeguridadCreate, IncidenteSeguridadUpdate } = require('./src/models/incidenteSeguridad');
 
 const app = express();
+app.use(helmet()); // Seguridad HTTP básica
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '2mb' })); // Prevenir payloads excesivamente grandes
 
 app.use('/api', routes);
 

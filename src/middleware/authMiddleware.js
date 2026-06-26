@@ -2,7 +2,11 @@ const jwt = require('jsonwebtoken');
 const usuariosService = require('../services/usuariosService');
 require('dotenv').config();
 
-const SECRET = process.env.JWT_SECRET || 'secretito';
+if (!process.env.JWT_SECRET) {
+  console.error("FATAL ERROR: JWT_SECRET no está definido en el archivo .env");
+  process.exit(1);
+}
+const SECRET = process.env.JWT_SECRET;
 
 const permisos = {
   CEO: ['*'],
@@ -25,21 +29,12 @@ const permisos = {
 
 function extractTokenFromReq(req) {
   const authHeader = req.headers.authorization || req.headers.Authorization;
-  const xToken =
-    req.headers['x-access-token'] ||
-    req.headers['x_token'] ||
-    req.headers['xapikey'];
-  const qToken =
-    req.query && (req.query.token || req.query.access_token);
-
-  if (authHeader && typeof authHeader === 'string') {
-    if (authHeader.startsWith('Bearer ')) return authHeader.split(' ')[1];
-    return authHeader;
+  
+  if (authHeader && typeof authHeader === 'string' && authHeader.startsWith('Bearer ')) {
+    return authHeader.split(' ')[1];
   }
-
-  if (xToken) return xToken;
-  if (qToken) return qToken;
-  return null;
+  
+  return null; // Rechazar explícitamente query strings y headers inseguros
 }
 
 
