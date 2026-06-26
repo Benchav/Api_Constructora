@@ -26,7 +26,7 @@ async function login(req, res) {
     });
 
     // Retornar solo el usuario, no el token
-    return res.json({ user: data.user });
+    return res.json({ usuario: data.usuario });
 
   } catch (error) {
     console.error('Error en authController.login:', error);
