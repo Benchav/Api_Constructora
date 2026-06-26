@@ -31,7 +31,7 @@ function makeController(service) {
 
     create: async (req, res) => {
       try {
-        const newItem = await service.create(req.body);
+        const newItem = await service.create(req.body, req.user);
         res.status(201).json(newItem);
       } catch (error) {
         console.error(error);
@@ -41,7 +41,7 @@ function makeController(service) {
 
     update: async (req, res) => {
       try {
-        const updatedItem = await service.update(req.params.id, req.body);
+        const updatedItem = await service.update(req.params.id, req.body, req.user);
         if (!updatedItem) {
           return res.status(404).json({ message: 'Elemento no encontrado' });
         }
@@ -54,7 +54,7 @@ function makeController(service) {
 
     remove: async (req, res) => {
       try {
-        const deleted = await service.remove(req.params.id);
+        const deleted = await service.remove(req.params.id, req.user);
         if (!deleted) {
           return res.status(404).json({ message: 'Elemento no encontrado' });
         }

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const ctrl = require('../controllers/proyectosController');
+const validateZod = require('../middleware/validateZod');
+const { proyectoSchema } = require('../validations/proyectoSchema');
 
 /**
  * @swagger
@@ -51,7 +53,7 @@ router.get('/', ctrl.list);
  *       400:
  *         description: Datos de entrada inválidos
  */
-router.post('/', ctrl.create);
+router.post('/', validateZod(proyectoSchema), ctrl.create);
 
 /**
  * @swagger
@@ -83,7 +85,7 @@ router.post('/', ctrl.create);
  *       404:
  *         description: Proyecto no encontrado
  */
-router.put('/:id', ctrl.update);
+router.put('/:id', validateZod(proyectoSchema), ctrl.update);
 
 /**
  * @swagger

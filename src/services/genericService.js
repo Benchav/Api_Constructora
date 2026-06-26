@@ -78,7 +78,7 @@ class GenericService {
   }
 
  
-  async create(data) {
+  async create(data, auditUser = null) {
     try {
       // Prevención de Mass Assignment
       const sanitizedData = { ...data };
@@ -98,12 +98,25 @@ class GenericService {
 
       const newItem = {
         ...sanitizedData,
-        [this.idField]: newId 
+        [this.idField]: newId,
+        createdAt: new Date().toISOString(),
+        createdBy: auditUser ? auditUser.username : 'system'
       };
 
     
       await this.collection.doc(String(newId)).set(newItem);
       
+      // Registrar log de auditoría
+      if (auditUser) {
+        await db.collection('audit_logs').add({
+          action: 'CREATE',
+          collection: this.collectionName,
+          docId: newId,
+          user: auditUser.username,
+          timestamp: new Date().toISOString()
+        });
+      }
+
       return newItem; 
     } catch (error) {
       console.error(`Error al crear en ${this.collectionName}:`, error);
@@ -112,7 +125,7 @@ class GenericService {
   }
 
   
-  async update(id, data) {
+  async update(id, data, auditUser = null) {
     try {
       // Prevención de Mass Assignment
       const sanitizedData = { ...data };
@@ -121,6 +134,9 @@ class GenericService {
       delete sanitizedData.isAdmin;
       delete sanitizedData.token;
       delete sanitizedData[this.idField]; // Evitar sobreescribir el ID
+      
+      sanitizedData.updatedAt = new Date().toISOString();
+      if (auditUser) sanitizedData.updatedBy = auditUser.username;
 
       const docRef = this.collection.doc(String(id));
       
@@ -135,6 +151,18 @@ class GenericService {
 
      
       const updatedDoc = await docRef.get();
+
+      // Registrar log de auditoría
+      if (auditUser) {
+        await db.collection('audit_logs').add({
+          action: 'UPDATE',
+          collection: this.collectionName,
+          docId: id,
+          user: auditUser.username,
+          timestamp: new Date().toISOString()
+        });
+      }
+
       return updatedDoc.data();
     } catch (error) {
       console.error(`Error al actualizar ID ${id} en ${this.collectionName}:`, error);
@@ -143,7 +171,7 @@ class GenericService {
   }
 
  
-  async remove(id) {
+  async remove(id, auditUser = null) {
     try {
       const docRef = this.collection.doc(String(id));
       
@@ -153,6 +181,18 @@ class GenericService {
       }
 
       await docRef.delete();
+
+      // Registrar log de auditoría
+      if (auditUser) {
+        await db.collection('audit_logs').add({
+          action: 'DELETE',
+          collection: this.collectionName,
+          docId: id,
+          user: auditUser.username,
+          timestamp: new Date().toISOString()
+        });
+      }
+
       return { id }; 
     } catch (error) {
       console.error(`Error al eliminar ID ${id} en ${this.collectionName}:`, error);

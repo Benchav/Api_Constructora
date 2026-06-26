@@ -5,6 +5,15 @@ jest.mock('../src/config/firebase', () => ({
   db: { collection: jest.fn() }
 }));
 
+// Mockear el servicio de autenticación para no provocar console.errors
+jest.mock('../src/services/authService', () => {
+  return {
+    login: jest.fn(async (username, password) => {
+      return null; // Simular que siempre falla el login para el test de rate limit
+    })
+  };
+});
+
 const app = require('../app');
 
 describe('Security & Rate Limiting Integration', () => {
