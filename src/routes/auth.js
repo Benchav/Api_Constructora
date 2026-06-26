@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { login, me } = require('../controllers/authController');
+const { login, me, logout } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
 const rateLimit = require('express-rate-limit');
 
@@ -49,5 +49,18 @@ router.post('/login', loginLimiter, login);
  *         description: Usuario actual
  */
 router.get('/me', protect, me);
+
+/**
+ * @swagger
+ * /api/auth/logout:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Cierra la sesión (elimina la cookie)
+ *     responses:
+ *       "200":
+ *         description: Sesión cerrada
+ */
+router.post('/logout', logout);
 
 module.exports = router;

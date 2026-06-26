@@ -4,6 +4,7 @@ const routes = require('./src/routes');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 
 const { UsuarioSchema, UsuarioCreate, UsuarioUpdate } = require('./src/models/usuario');
 const { ProyectoSchema, ProyectoCreate, ProyectoUpdate } = require('./src/models/proyecto');
@@ -21,8 +22,15 @@ const { IncidenteSeguridadSchema, IncidenteSeguridadCreate, IncidenteSeguridadUp
 
 const app = express();
 app.use(helmet()); // Seguridad HTTP básica
-app.use(cors());
+
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : ['http://localhost:5173'],
+  credentials: true
+};
+app.use(cors(corsOptions));
+
 app.use(express.json({ limit: '2mb' })); // Prevenir payloads excesivamente grandes
+app.use(cookieParser());
 
 app.use('/api', routes);
 

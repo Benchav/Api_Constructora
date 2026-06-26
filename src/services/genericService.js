@@ -80,6 +80,13 @@ class GenericService {
  
   async create(data) {
     try {
+      // Prevención de Mass Assignment
+      const sanitizedData = { ...data };
+      delete sanitizedData.rol;
+      delete sanitizedData.permisos;
+      delete sanitizedData.isAdmin;
+      delete sanitizedData.token;
+
       let newId;
 
     
@@ -90,7 +97,7 @@ class GenericService {
       }
 
       const newItem = {
-        ...data,
+        ...sanitizedData,
         [this.idField]: newId 
       };
 
@@ -107,6 +114,14 @@ class GenericService {
   
   async update(id, data) {
     try {
+      // Prevención de Mass Assignment
+      const sanitizedData = { ...data };
+      delete sanitizedData.rol;
+      delete sanitizedData.permisos;
+      delete sanitizedData.isAdmin;
+      delete sanitizedData.token;
+      delete sanitizedData[this.idField]; // Evitar sobreescribir el ID
+
       const docRef = this.collection.doc(String(id));
       
     
@@ -116,7 +131,7 @@ class GenericService {
       }
 
  
-      await docRef.set(data, { merge: true });
+      await docRef.set(sanitizedData, { merge: true });
 
      
       const updatedDoc = await docRef.get();

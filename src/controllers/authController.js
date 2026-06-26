@@ -17,7 +17,16 @@ async function login(req, res) {
     }
 
 
-    return res.json(data);
+    // Configurar cookie HttpOnly
+    res.cookie('token', data.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 dias
+    });
+
+    // Retornar solo el usuario, no el token
+    return res.json({ user: data.user });
 
   } catch (error) {
     console.error('Error en authController.login:', error);
@@ -30,4 +39,9 @@ function me(req, res) {
   res.json({ user: req.user });
 }
 
-module.exports = { login, me };
+function logout(req, res) {
+  res.clearCookie('token');
+  res.json({ message: 'Sesión cerrada exitosamente' });
+}
+
+module.exports = { login, me, logout };

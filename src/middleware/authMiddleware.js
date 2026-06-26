@@ -28,6 +28,12 @@ const permisos = {
 
 
 function extractTokenFromReq(req) {
+  // Primero intentar extraer de la cookie HttpOnly
+  if (req.cookies && req.cookies.token) {
+    return req.cookies.token;
+  }
+  
+  // Soporte legado/fallback para cabecera Authorization: Bearer
   const authHeader = req.headers.authorization || req.headers.Authorization;
   
   if (authHeader && typeof authHeader === 'string' && authHeader.startsWith('Bearer ')) {
