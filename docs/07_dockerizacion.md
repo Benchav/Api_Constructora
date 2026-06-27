@@ -113,12 +113,12 @@ El archivo `.env` del backend (`D:\Api_Constructora\.env`) debe contener:
 
 | Variable | Descripción | Requerida |
 |----------|-------------|-----------|
-| `JWT_SECRET` | Clave secreta para firmar tokens JWT | ✅ |
-| `JWT_EXPIRES_IN` | Tiempo de expiración del JWT (ej: `7d`) | ✅ |
-| `FIREBASE_PROJECT_ID` | ID del proyecto en Firebase | ✅ |
-| `FIREBASE_CLIENT_EMAIL` | Email de la cuenta de servicio | ✅ |
-| `FIREBASE_PRIVATE_KEY` | Clave privada RSA (entre comillas) | ✅ |
-| `CORS_ORIGIN` | Orígenes permitidos, separados por coma | ✅ |
+| `JWT_SECRET` | Clave secreta para firmar tokens JWT |  |
+| `JWT_EXPIRES_IN` | Tiempo de expiración del JWT (ej: `7d`) |  |
+| `FIREBASE_PROJECT_ID` | ID del proyecto en Firebase |  |
+| `FIREBASE_CLIENT_EMAIL` | Email de la cuenta de servicio |  |
+| `FIREBASE_PRIVATE_KEY` | Clave privada RSA (entre comillas) |  |
+| `CORS_ORIGIN` | Orígenes permitidos, separados por coma |  |
 | `NODE_ENV` | Entorno (`production` / `development`) | Opcional |
 
 > **Nota:** Para Docker, agregar `http://localhost` a `CORS_ORIGIN` si no está presente.

@@ -4,22 +4,22 @@ Este documento explica cómo levantar y detener el ecosistema completo (Backend 
 
 ---
 
-## 📂 Estructura recomendada de la entrega
+##  Estructura recomendada de la entrega
 
 Para evaluar el proyecto de la forma más sencilla, asegúrese de que la carpeta que contiene el proyecto tenga esta estructura exacta:
 
 ```text
-📁 Entrega_ConstructERP/ (O el nombre de su carpeta principal)
-   ├── 📁 Api_Constructora/
-   ├── 📁 Constructora/
-   └── 📄 docker-compose.yml
+ Entrega_ConstructERP/ (O el nombre de su carpeta principal)
+   ├──  Api_Constructora/
+   ├──  Constructora/
+   └──  docker-compose.yml
 ```
 
 > **IMPORTANTE**: El archivo `docker-compose.yml` debe estar **afuera** de las dos carpetas de los proyectos, es decir, al mismo nivel que ellas.
 
 ---
 
-## 🚀 Comandos de Ejecución
+##  Comandos de Ejecución
 
 Abra su terminal o consola de comandos, **navegue hasta la carpeta principal** (`Entrega_ConstructERP/` o donde haya extraído el proyecto) y ejecute los siguientes comandos:
 
@@ -51,7 +51,7 @@ docker compose down
 
 ---
 
-## ⚠️ Posibles Errores
+##  Posibles Errores
 
 * **Error: `project name must not be empty` o `no configuration file provided`**
   Este error ocurre si intenta ejecutar los comandos `docker compose` estando dentro de la carpeta `Api_Constructora/` o `Constructora/`.

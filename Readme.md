@@ -1,4 +1,4 @@
-# 🏗️ ConstructERP — API de Constructora
+#  ConstructERP — API de Constructora
 
 > **Backend:** Node.js · Express · Firebase Firestore
 > **Frontend:** React · Vite · TailwindCSS · Shadcn/ui
@@ -8,7 +8,7 @@ API RESTful robusta diseñada para gestionar los recursos y operaciones de una e
 
 ---
 
-## 📋 Características Principales
+##  Características Principales
 
 - **Servidor RESTful**: Operaciones CRUD completas para 13+ entidades (Proyectos, Usuarios, Inventario, Finanzas, Licitaciones, etc.).
 - **Base de Datos en la Nube**: Firebase Firestore (NoSQL, escalable, tiempo real).
@@ -24,7 +24,7 @@ API RESTful robusta diseñada para gestionar los recursos y operaciones de una e
 
 ---
 
-## 🛠️ Tecnologías
+##  Tecnologías
 
 | Capa | Tecnología |
 |------|-----------|
@@ -40,7 +40,7 @@ API RESTful robusta diseñada para gestionar los recursos y operaciones de una e
 
 ---
 
-## 🚀 Inicio Rápido
+##  Inicio Rápido
 
 ### Opción 1: Con Docker (Recomendado)
 
@@ -130,7 +130,7 @@ npm run dev
 
 ---
 
-## 🔐 Variables de Entorno
+##  Variables de Entorno
 
 Crea un archivo `.env` en la raíz de `Api_Constructora/` con las siguientes variables:
 
@@ -151,11 +151,11 @@ CORS_ORIGIN=http://localhost,http://localhost:5173,http://localhost:8080,https:/
 NODE_ENV=production
 ```
 
-> ⚠️ **Importante:** Nunca subas el archivo `.env` a GitHub. Está incluido en `.gitignore`.
+>  **Importante:** Nunca subas el archivo `.env` a GitHub. Está incluido en `.gitignore`.
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 ```bash
 # Ejecutar toda la suite de pruebas
@@ -173,7 +173,7 @@ La suite incluye pruebas de:
 
 ---
 
-## 📁 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 Api_Constructora/
@@ -218,7 +218,7 @@ Api_Constructora/
 
 ---
 
-## 📖 Documentación de Seguridad
+##  Documentación de Seguridad
 
 Toda la documentación técnica de las mejoras de seguridad implementadas se encuentra en la carpeta `docs/`:
 
@@ -233,7 +233,7 @@ Toda la documentación técnica de las mejoras de seguridad implementadas se enc
 
 ---
 
-## 👨‍💻 Autor
+## ‍ Autor
 
 **Joshua Chávez**
-🌐 [Portafolio](https://joshuachavez.vercel.app/)
+ [Portafolio](https://joshuachavez.vercel.app/)
