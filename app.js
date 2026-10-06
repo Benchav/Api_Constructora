@@ -21,11 +21,39 @@ const { InspeccionCalidadSchema, InspeccionCalidadCreate, InspeccionCalidadUpdat
 const { IncidenteSeguridadSchema, IncidenteSeguridadCreate, IncidenteSeguridadUpdate } = require('./src/models/incidenteSeguridad');
 
 const app = express();
-app.use(helmet()); // Seguridad HTTP básica
+
+// Seguridad HTTP básica: permitir llamadas cross-origin y deshabilitar CSP en API REST
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  contentSecurityPolicy: false
+}));
+
+const defaultOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://localhost:4173',
+  'https://rikiconstructora.vercel.app'
+];
+
+const envOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(o => o.trim()).filter(Boolean)
+  : [];
+
+const allowedOrigins = Array.from(new Set([...defaultOrigins, ...envOrigins]));
 
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : ['http://localhost:5173'],
-  credentials: true
+  origin: (origin, callback) => {
+    // Permitir requests sin origin (como Postman, scripts server-side)
+    if (!origin) return callback(null, true);
+    // Permitir orígenes configurados o cualquier preview de rikiconstructora en Vercel
+    if (allowedOrigins.includes(origin) || /^https:\/\/rikiconstructora.*\.vercel\.app$/.test(origin)) {
+      return callback(null, true);
+    }
+    return callback(null, false);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 };
 app.use(cors(corsOptions));
 

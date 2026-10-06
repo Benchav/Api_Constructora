@@ -18,15 +18,18 @@ async function login(req, res) {
 
 
     // Configurar cookie HttpOnly
-    res.cookie('token', data.token, {
+    const isProduction = process.env.NODE_ENV === 'production';
+    const cookieOptions = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 dias
-    });
+    };
 
-    // Retornar solo el usuario, no el token
-    return res.json({ usuario: data.usuario });
+    res.cookie('token', data.token, cookieOptions);
+
+    // Retornar usuario y token (para permitir fallback si el navegador restringe cookies de terceros)
+    return res.json({ usuario: data.usuario, token: data.token });
 
   } catch (error) {
     console.error('Error en authController.login:', error);
@@ -40,7 +43,12 @@ function me(req, res) {
 }
 
 function logout(req, res) {
-  res.clearCookie('token');
+  const isProduction = process.env.NODE_ENV === 'production';
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax'
+  });
   res.json({ message: 'Sesión cerrada exitosamente' });
 }
 
